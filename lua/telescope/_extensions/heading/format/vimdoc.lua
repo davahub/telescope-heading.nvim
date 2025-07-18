@@ -18,14 +18,9 @@ function Vimdoc.get_headings(filepath, start, total)
     local headings = {}
     local index = start
     local last_line = ''
-
-    local function is_heading(line)
-        return line:match("^=+$") or line:match("^%-%-+$")
-    end
-
     while index <= total do
         local line = vim.fn.getline(index)
-        if is_heading(last_line) then
+        if is_heading(last_line, '=') or is_heading(last_line, '-') then
             local matches = vim.regex('\\*\\S\\+\\*$'):match_str(line)
             if matches ~= nil then
                 local heading = ''
@@ -47,6 +42,7 @@ function Vimdoc.get_headings(filepath, start, total)
 
     return headings
 end
+
 
 
 function Vimdoc.ts_get_headings(filepath, bufnr)
