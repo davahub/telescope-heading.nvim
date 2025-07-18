@@ -49,6 +49,7 @@ function Vimdoc.ts_get_headings(filepath, bufnr)
     local ts = vim.treesitter
     local query = [[
       (h1) @text.title
+      (h2) @text.title
     ]]
     local parse_query = ts.query.parse or ts.parse_query
     local parsed_query = parse_query('vimdoc', query)
